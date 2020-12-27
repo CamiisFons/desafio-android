@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.desafioandroidcamila.R
 import br.com.desafioandroidcamila.adapter.PullRequestAdapter
 import br.com.desafioandroidcamila.databinding.ActivityPullRequestBinding
-import br.com.desafioandroidcamila.models.PullRequestRepository
+import br.com.desafioandroidcamila.models.ItemPullRequest
 
 class PullRequestActivity : AppCompatActivity() {
 
@@ -35,15 +35,15 @@ class PullRequestActivity : AppCompatActivity() {
         return false
     }
 
-    private fun generateList(size: Int): List<PullRequestRepository> {
-        val list = ArrayList<PullRequestRepository>()
+    private fun generateList(size: Int): List<ItemPullRequest> {
+        val list = ArrayList<ItemPullRequest>()
 
         for (i in 0 until size) {
             val drawable = when (i % 3) {
                 0 -> R.drawable.ic_person
                 else -> R.drawable.ic_person
             }
-            val item = PullRequestRepository(
+            val item = ItemPullRequest(
                 drawable,
                 "Cleiton",
                 "App legal",

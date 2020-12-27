@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.desafioandroidcamila.R
-import br.com.desafioandroidcamila.models.PullRequestRepository
+import br.com.desafioandroidcamila.models.ItemPullRequest
 
-class PullRequestAdapter(private val pullRequestList: List<PullRequestRepository>): RecyclerView.Adapter<PullRequestAdapter.AdapterPullRequestViewHolder>(){
+class PullRequestAdapter(private val pullRequestList: List<ItemPullRequest>): RecyclerView.Adapter<PullRequestAdapter.AdapterPullRequestViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterPullRequestViewHolder {
 

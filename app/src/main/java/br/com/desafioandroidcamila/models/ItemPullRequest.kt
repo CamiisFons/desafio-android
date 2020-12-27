@@ -1,6 +1,6 @@
 package br.com.desafioandroidcamila.models
 
-data class PullRequestRepository (
+data class ItemPullRequest (
             val photo_user: Int,
             val pull_request_username: String,
             val pull_request_title: String,

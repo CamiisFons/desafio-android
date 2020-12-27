@@ -1,8 +1,14 @@
 package br.com.desafioandroidcamila.webservices
 
-//object InicializadorAPI {
-  //  val retrofit: Retrofit = Retrofit.Builder()
-    //        .baseUrl("https://api.github.com")
-      //      .addConverterFactory(GsonConverterFactory.create())
-        //    .build()
-//}
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object InicializadorAPI {
+    fun init ():RepositoryInterface{
+       return Retrofit.Builder()
+          .baseUrl("https://api.github.com")
+          .addConverterFactory(GsonConverterFactory.create())
+          .build()
+          .create(RepositoryInterface::class.java)
+    }
+}
