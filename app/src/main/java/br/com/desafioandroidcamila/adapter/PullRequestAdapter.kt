@@ -3,49 +3,77 @@ package br.com.desafioandroidcamila.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.desafioandroidcamila.R
-import br.com.desafioandroidcamila.models.ItemPullRequest
+import br.com.desafioandroidcamila.models.PullRequest
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.pull_request_item.view.*
 
-class PullRequestAdapter(private val pullRequestList: List<ItemPullRequest>): RecyclerView.Adapter<PullRequestAdapter.AdapterPullRequestViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterPullRequestViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.pull_request_item,parent, false)
-        return PullRequestAdapter.AdapterPullRequestViewHolder(itemView)
+class PullRequestAdapter(private val pullRequestList: List<PullRequest>,
+                         private val listenerPull : ListOnClickListener
+                         ): RecyclerView.Adapter<PullRequestAdapter.PullRequestViewHolder>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullRequestViewHolder {
+        return PullRequestViewHolder(LayoutInflater.from(parent.context)
+            .inflate(R.layout.pull_request_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder:AdapterPullRequestViewHolder, position: Int) {
-        val currentItem = pullRequestList[position]
 
-        holder.username.text = currentItem.pull_request_username
-        holder.pullRequestName.text = currentItem.pull_request_name
-        holder.pullRequestTitle.text = currentItem.pull_request_title
-        holder.pullRequestDescription.text = currentItem.pull_request_description
-        holder.pullRequestDate.text = currentItem.pull_request_date
-        holder.photoUserPull.setImageResource(currentItem.photo_user)
-
+    override fun onBindViewHolder(holder: PullRequestViewHolder, position: Int) {
+        holder.titlePull.text = pullRequestList[position].pullRequestTytle
+        holder.descriptionPull.text = pullRequestList[position].body
+        holder.usernamePull.text = pullRequestList[position].owner.login
+        holder.namePull.text = pullRequestList[position].name
+        holder.datePull.text = pullRequestList[position].pullRequestDate
+        holder.profileImageLoad(pullRequestList[position].owner.photo_user)
+        holder.itemView.setOnClickListener {
+            listenerPull.OnItemListClick(position)
+        }
     }
 
     override fun getItemCount() = pullRequestList.size
 
 
-    class AdapterPullRequestViewHolder (itemView:View):RecyclerView.ViewHolder(itemView){
+    class PullRequestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val titlePull = itemView.pull_title
+        val descriptionPull = itemView.pull_description
+        val usernamePull = itemView.pull_username
+        val namePull = itemView.pull_name
+        val datePull = itemView.pull_date
+        val photopull = itemView.photo_user
 
-        val username : TextView = itemView.findViewById(R.id.pull_request_username)
-        val pullRequestName : TextView = itemView.findViewById(R.id.pull_request_name)
-        val pullRequestTitle : TextView = itemView.findViewById(R.id.pull_request_title)
-        val pullRequestDescription : TextView = itemView.findViewById(R.id.pull_request_description)
-        val pullRequestDate : TextView = itemView.findViewById(R.id.pull_request_date)
-        val photoUserPull : ImageView = itemView.findViewById(R.id.photo_user)
+        fun profileImageLoad(url: String) {
+            if (url.isBlank()) {
+                Picasso.get()
+                    .load(url)
+                    .placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
+                    .into(photopull)
+            }else {
+                Picasso.get()
+                    .load(url)
+                    .placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
+                    .into(photopull)
 
+            }
+
+        }
 
     }
 
+    interface ListOnClickListener {
+        fun OnItemListClick(position: Int)
 
+    }
 
 }
+
+
+
+
+
+
 

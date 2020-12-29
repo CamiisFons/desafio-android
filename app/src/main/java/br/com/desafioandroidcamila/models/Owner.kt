@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Owner(
     @SerializedName("login")
-    val username : String,
+    val login : String,
     @SerializedName ("avatar_url")
     val photo_user : String
 )

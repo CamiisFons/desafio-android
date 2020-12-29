@@ -1,27 +1,39 @@
 package br.com.desafioandroidcamila.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import br.com.desafioandroidcamila.models.Repositories
 import br.com.desafioandroidcamila.models.Repository
-import br.com.desafioandroidcamila.repositorio.RepoRepository
-import kotlinx.coroutines.launch
+import br.com.desafioandroidcamila.webservices.InicializadorAPI
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class RepositoryViewModel (private val re: RepoRepository): ViewModel() {
+class RepositoryViewModel : ViewModel(){
 
-    private val repositoryList: MutableLiveData<List<Repository>> = MutableLiveData()
-    private val excecao: MutableLiveData<String> = MutableLiveData()
+    private val list : MutableList<Repository> = arrayListOf<Repository>()
+    private val users by lazy { InicializadorAPI.init() }
+    val liveData: MutableLiveData<List<Repository>> = MutableLiveData()
 
-    fun listRepository(pagina: Int) {
-        viewModelScope.launch {
-            val response = re.searchRepository(pagina)
+    fun getRepository(page: Int){
+
+    users.getList(page).enqueue(object : Callback<Repositories> {
+        override fun onResponse(
+            call: Call<Repositories>,
+            response: Response<Repositories>
+        ) {
             if (response.isSuccessful) {
-                repositoryList.postValue(response.body())
-            } else {
-                excecao.postValue("problem!")
+                response.body()?.let {
+                    liveData.postValue(it.items)
+                }
             }
-
         }
-    }
-}
 
+        override fun onFailure(call: Call<Repositories>, t: Throwable) {
+            Log.d("Erro", t.message.toString())
+        }
+
+    })
+}
+}

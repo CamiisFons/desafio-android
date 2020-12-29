@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:id="@+id/card_repository"
     app:cardCornerRadius="24dp"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    android:clickable="true">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -38,7 +39,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/login"
+            android:id="@+id/full_name"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/username"

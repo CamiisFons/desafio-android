@@ -1,68 +1,66 @@
 package br.com.desafioandroidcamila.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import br.com.desafioandroidcamila.R
+import br.com.desafioandroidcamila.Utils.Constants
 import br.com.desafioandroidcamila.adapter.RepositoryAdapter
 import br.com.desafioandroidcamila.databinding.ActivityMainBinding
-import br.com.desafioandroidcamila.models.Repositories
-import br.com.desafioandroidcamila.models.Repository
-import br.com.desafioandroidcamila.webservices.InicializadorAPI.init
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import br.com.desafioandroidcamila.viewmodel.RepositoryViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener {
 
-    private lateinit var binding: ActivityMainBinding
 
-    private val list = ArrayList<Repository>()
-    private val adapter = RepositoryAdapter(list)
+    private val adapterRepository = RepositoryAdapter(ArrayList(),this)
 
-    private val users by lazy { init() }
+    private lateinit var binding : ActivityMainBinding
+    private lateinit var viewModel: RepositoryViewModel
+    private var page = 1
+
+   // private val user by lazy { init() }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        recyclerInit()
 
-        val recycler_view = findViewById<RecyclerView>(R.id.recycler_repository)
+    }
+        private fun recyclerInit() {
+            binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+            binding.recyclerRepository.adapter = adapterRepository
+            binding.recyclerRepository.layoutManager = LinearLayoutManager(this)
+            binding.recyclerRepository.setHasFixedSize(true)
+            setSupportActionBar(binding.toolBar)
+            getRepository(page)
 
-        recycler_view?.adapter = adapter
-        recycler_view?.layoutManager = LinearLayoutManager(this)
-        recycler_view?.setHasFixedSize(true)
+        }
+
+        private fun getRepository(page: Int){
+
+            viewModel = ViewModelProvider(this).get(RepositoryViewModel::class.java)
+            viewModel.liveData.observe(this, Observer {
+                adapterRepository.repositoryList.addAll(it)
+                adapterRepository.notifyDataSetChanged()
+            })
+            viewModel.getRepository(page)
+        }
 
 
-        users.getRepository().enqueue(object : Callback<Repositories> {
-            override fun onResponse(
-                call: Call<Repositories>,
-                response: Response<Repositories>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        binding.recyclerRepository.adapter =
-                            RepositoryAdapter(it.items)
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<Repositories>, t: Throwable) {
-                Log.d("Erro", t.message.toString())
-                Toast.makeText(this@MainActivity, t.message, Toast.LENGTH_LONG).show()
-            }
-
-        })
+    override fun onItemClick(position: Int) {
+        val intecao = Intent (this, PullRequestActivity::class.java)
+        intecao.putExtra(Constants.owner,adapterRepository.repositoryList[position].owner.login)
+        intecao.putExtra(Constants.repositories,adapterRepository.repositoryList[position].repositoryName)
+        startActivity(intecao)
     }
 
 }
 
-         //fun onItemClick(position: Int) {
-           // val intencao = Intent(this, PullRequestActivity::class.java)
-          //  startActivity(intencao)
 
 
 

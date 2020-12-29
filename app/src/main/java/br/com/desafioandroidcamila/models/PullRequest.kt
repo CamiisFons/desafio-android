@@ -2,13 +2,13 @@ package br.com.desafioandroidcamila.models
 
 import com.google.gson.annotations.SerializedName
 
+
 data class PullRequest(
-    @SerializedName("")
-    val pullRequestTytle : String,
-    @SerializedName("")
-    val pullDescription : String,
-    @SerializedName ("full_name")
-    val pullRequestName: String,
-    val owner: Owner,
+    @SerializedName("name") val pullRequestTytle : String,
+    @SerializedName("created_at") val pullRequestDate : String,
+    @SerializedName("user") val owner: Owner,
+    @SerializedName("html_url") val html_url : String,
+    @SerializedName("body") val body : String,
+    @SerializedName("login") val name: String
 
 )

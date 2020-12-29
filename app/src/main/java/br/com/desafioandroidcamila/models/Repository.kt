@@ -3,16 +3,11 @@ package br.com.desafioandroidcamila.models
 import com.google.gson.annotations.SerializedName
 
 data class Repository(
-    @SerializedName("name")
-    val repositoryName: String,
-    @SerializedName("description")
-    val repositoryDescription: String,
-    @SerializedName("forks_count")
-    val forksQnty: Int,
-    @SerializedName("stargazers_count")
-    val starQnty: Int,
-    @SerializedName("fullname")
-    val login: String,
-    @SerializedName("id") val id: Int,
+    @SerializedName("total_count") val totalPage: Int,
+    @SerializedName("name") val repositoryName: String,
+    @SerializedName("description") val repositoryDescription: String,
+    @SerializedName("forks_count") val forksQnty: Int,
+    @SerializedName("stargazers_count") val starQnty: Int,
+    @SerializedName("fullname") val fullname: String,
     @SerializedName("owner") val owner: Owner
 )

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_pull"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="24dp"
@@ -19,7 +20,7 @@
 
 
             <TextView
-                android:id="@+id/pull_request_title"
+                android:id="@+id/pull_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -31,7 +32,7 @@
 
 
             <TextView
-                android:id="@+id/pull_request_description"
+                android:id="@+id/pull_description"
                 android:layout_width="374dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
@@ -51,10 +52,10 @@
                 app:srcCompat="@drawable/ic_person" />
 
         <TextView
-            android:id="@+id/pull_request_username"
+            android:id="@+id/pull_username"
             android:layout_width="100dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/pull_request_description"
+            android:layout_below="@+id/pull_description"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="22dp"
@@ -63,10 +64,10 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/pull_request_name"
+            android:id="@+id/pull_name"
             android:layout_width="100dp"
             android:layout_height="20dp"
-            android:layout_below="@+id/pull_request_username"
+            android:layout_below="@+id/pull_username"
             android:layout_marginStart="24dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
@@ -76,10 +77,10 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/pull_request_date"
+            android:id="@+id/pull_date"
             android:layout_width="136dp"
             android:layout_height="18dp"
-            android:layout_below="@+id/pull_request_description"
+            android:layout_below="@+id/pull_description"
             android:layout_marginStart="275dp"
             android:layout_marginTop="70dp"
             android:layout_marginEnd="8dp"

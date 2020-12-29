@@ -7,22 +7,24 @@ import br.com.desafioandroidcamila.databinding.RepositoryItemBinding
 import br.com.desafioandroidcamila.models.Repository
 import com.bumptech.glide.Glide
 
-class RepositoryAdapter(private val repositoryList: List<Repository>): RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
+class RepositoryAdapter (
+    val repositoryList: MutableList<Repository>,
+    private val listener : OnItemClickListener): RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
-        return RepositoryViewHolder(RepositoryItemBinding.inflate(LayoutInflater.from(parent.context),
+        return RepositoryViewHolder(RepositoryItemBinding.inflate(
+            LayoutInflater.from(parent.context),
             parent,
             false)
         )
     }
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
-        holder.binding(repositoryList[position])
-        //val repository = repositoryList[position]
-       // holder.binding(repository)
-
-        //  holder.itemView.setOnClickListener{
-        //    listener.onItemClick(position)
+        holder.binding(this.repositoryList[position])
+        
+        holder.repositoryItemBinding.cardRepository.setOnClickListener{
+            listener.onItemClick(position)
+        }
     }
 
 
@@ -31,11 +33,12 @@ class RepositoryAdapter(private val repositoryList: List<Repository>): RecyclerV
     }
 
 
-        class RepositoryViewHolder(private val repositoryItemBinding: RepositoryItemBinding) :
+      inner class RepositoryViewHolder(val repositoryItemBinding: RepositoryItemBinding) :
         RecyclerView.ViewHolder(repositoryItemBinding.root) {
+
         fun binding(repository: Repository) {
-            repositoryItemBinding.username.text = repository.owner.username
-            repositoryItemBinding.login.text = repository.login
+            repositoryItemBinding.username.text = repository.owner.login
+            repositoryItemBinding.fullName.text = repository.fullname
             repositoryItemBinding.starQnty.text = repository.starQnty.toString()
             repositoryItemBinding.forkQnty.text = repository.forksQnty.toString()
             repositoryItemBinding.repositoryName.text = repository.repositoryName
@@ -49,9 +52,11 @@ class RepositoryAdapter(private val repositoryList: List<Repository>): RecyclerV
 
     }
 
-    //interface OnItemClickListener {
-      //  fun onItemClick(position: Int)
-   // }
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+
 }
 
 
