@@ -21,8 +21,8 @@ class RepositoryAdapter (
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
         holder.binding(this.repositoryList[position])
-        
-        holder.repositoryItemBinding.cardRepository.setOnClickListener{
+
+        holder.repositoryItemBinding.cardRepository.setOnClickListener {
             listener.onItemClick(position)
         }
     }
@@ -33,7 +33,7 @@ class RepositoryAdapter (
     }
 
 
-      inner class RepositoryViewHolder(val repositoryItemBinding: RepositoryItemBinding) :
+    inner class RepositoryViewHolder(val repositoryItemBinding: RepositoryItemBinding) :
         RecyclerView.ViewHolder(repositoryItemBinding.root) {
 
         fun binding(repository: Repository) {
@@ -55,8 +55,8 @@ class RepositoryAdapter (
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
-
-
 }
+
+
 
 

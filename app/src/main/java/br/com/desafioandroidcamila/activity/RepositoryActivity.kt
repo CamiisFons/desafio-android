@@ -3,15 +3,15 @@ package br.com.desafioandroidcamila.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.desafioandroidcamila.Utils.Constants
 import br.com.desafioandroidcamila.adapter.RepositoryAdapter
 import br.com.desafioandroidcamila.databinding.ActivityMainBinding
 import br.com.desafioandroidcamila.viewmodel.RepositoryViewModel
 
-class MainActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener {
+class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener {
 
 
     private val adapterRepository = RepositoryAdapter(ArrayList(),this)
@@ -19,8 +19,10 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener 
     private lateinit var binding : ActivityMainBinding
     private lateinit var viewModel: RepositoryViewModel
     private var page = 1
+    private var isLoading = false
+    private var lastPosition = 0
 
-   // private val user by lazy { init() }
+
 
 
 
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener 
         recyclerInit()
 
     }
-        private fun recyclerInit() {
+        fun recyclerInit() {
             binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
             binding.recyclerRepository.adapter = adapterRepository
@@ -38,12 +40,31 @@ class MainActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickListener 
             setSupportActionBar(binding.toolBar)
             getRepository(page)
 
-        }
+
+            binding.recyclerRepository.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val lastCompleteItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                    if (!isLoading){
+                        if (lastCompleteItem == adapterRepository.repositoryList.size - 1){
+                            page +=1
+                            isLoading = true
+                            lastPosition = adapterRepository.repositoryList.size +1
+                            getRepository(++page)
+                        }
+                    }
+                }
+            })
+                }
+
+
+
 
         private fun getRepository(page: Int){
 
             viewModel = ViewModelProvider(this).get(RepositoryViewModel::class.java)
-            viewModel.liveData.observe(this, Observer {
+            viewModel.liveData.observe(this, {
                 adapterRepository.repositoryList.addAll(it)
                 adapterRepository.notifyDataSetChanged()
             })

@@ -64,7 +64,7 @@ class PullRequestAdapter(private val pullRequestList: List<PullRequest>,
 
     }
 
-    interface ListOnClickListener {
+    interface   ListOnClickListener {
         fun OnItemListClick(position: Int)
 
     }

@@ -2,7 +2,7 @@ package br.com.desafioandroidcamila.Utils
 
 object Constants {
 
-    const val owner = "OWNER"
-    const val repositories = "REPOSITORIES"
+    const val owner = "owner"
+    const val repositories = "repositories"
 
 }

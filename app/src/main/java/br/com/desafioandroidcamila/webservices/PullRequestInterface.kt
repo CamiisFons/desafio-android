@@ -9,5 +9,5 @@ interface PullRequestInterface {
     @GET("repos/{owner}/{repositories}/pulls")
 
     fun getPullRequest(@Path("owner")owner: String,
-                        @Path("repositories")repositories: String) : Call<List<PullRequest>>
+                       @Path("repositories")repositories: String) : Call<List<PullRequest>>
 }
