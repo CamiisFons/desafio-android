@@ -10,30 +10,31 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RepositoryViewModel : ViewModel(){
+class RepositoryViewModel : ViewModel() {
 
-    private val list : MutableList<Repository> = arrayListOf<Repository>()
+    private val list: MutableList<Repository> = arrayListOf()
     private val users by lazy { InicializadorAPI.init() }
     val liveData: MutableLiveData<List<Repository>> = MutableLiveData()
 
-    fun getRepository(page: Int){
 
-    users.getList(page).enqueue(object : Callback<Repositories> {
-        override fun onResponse(
-            call: Call<Repositories>,
-            response: Response<Repositories>
-        ) {
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    liveData.postValue(it.items)
+    fun getRepository(page: Int) {
+        users.getList(page).enqueue(object : Callback<Repositories> {
+            override fun onResponse(
+                call: Call<Repositories>,
+                response: Response<Repositories>,
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        liveData.postValue(it.items)
+                    }
                 }
             }
-        }
 
-        override fun onFailure(call: Call<Repositories>, t: Throwable) {
-            Log.d("Erro", t.message.toString())
-        }
+            override fun onFailure(call: Call<Repositories>, t: Throwable) {
+                Log.d("Erro", t.message.toString())
+            }
 
-    })
+        })
+    }
 }
-}
+

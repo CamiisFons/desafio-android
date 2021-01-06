@@ -9,6 +9,8 @@ data class PullRequest(
     @SerializedName("user") val owner: Owner,
     @SerializedName("html_url") val html_url : String,
     @SerializedName("body") val body : String,
-    @SerializedName("login") val name: String
+    @SerializedName("login") val name: String,
+    @SerializedName("open_issues") val open: String,
+    @SerializedName("number") val number : String
 
 )

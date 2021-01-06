@@ -4,19 +4,19 @@
     android:id="@+id/card_pull"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="24dp"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    app:cardCornerRadius="24dp">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="8dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="175dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="175dp">
 
 
             <TextView
@@ -51,44 +51,44 @@
                 android:layout_marginBottom="8dp"
                 app:srcCompat="@drawable/ic_person" />
 
-        <TextView
-            android:id="@+id/pull_username"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/pull_description"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="22dp"
-            android:layout_toEndOf="@+id/photo_user"
-            android:text="username"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/pull_username"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/pull_description"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="22dp"
+                android:layout_toEndOf="@+id/photo_user"
+                android:text="username"
+                android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/pull_name"
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/pull_username"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="590dp"
-            android:layout_toEndOf="@+id/photo_user"
-            android:text="Nome Completo"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/pull_name"
+                android:layout_width="100dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/pull_username"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="590dp"
+                android:layout_toEndOf="@+id/photo_user"
+                android:text="Nome Completo"
+                android:textAlignment="center" />
 
-        <TextView
-            android:id="@+id/pull_date"
-            android:layout_width="136dp"
-            android:layout_height="18dp"
-            android:layout_below="@+id/pull_description"
-            android:layout_marginStart="275dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="8dp"
-            android:text="XXX/XX/XX"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/pull_date"
+                android:layout_width="136dp"
+                android:layout_height="18dp"
+                android:layout_below="@+id/pull_description"
+                android:layout_marginStart="275dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
+                android:text="XXX/XX/XX"
+                android:textAlignment="center" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.cardview.widget.CardView>

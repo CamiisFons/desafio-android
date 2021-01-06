@@ -8,6 +8,6 @@ data class Repository(
     @SerializedName("description") val repositoryDescription: String,
     @SerializedName("forks_count") val forksQnty: Int,
     @SerializedName("stargazers_count") val starQnty: Int,
-    @SerializedName("fullname") val fullname: String,
+    @SerializedName("full_name") val fullname: String,
     @SerializedName("owner") val owner: Owner
 )

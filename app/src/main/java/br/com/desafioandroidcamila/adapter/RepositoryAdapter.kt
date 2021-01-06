@@ -7,9 +7,10 @@ import br.com.desafioandroidcamila.databinding.RepositoryItemBinding
 import br.com.desafioandroidcamila.models.Repository
 import com.bumptech.glide.Glide
 
-class RepositoryAdapter (
+class RepositoryAdapter(
     val repositoryList: MutableList<Repository>,
-    private val listener : OnItemClickListener): RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
+    private val listener: OnItemClickListener,
+) : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
         return RepositoryViewHolder(RepositoryItemBinding.inflate(
@@ -45,6 +46,7 @@ class RepositoryAdapter (
             repositoryItemBinding.descriptionRepository.text = repository.repositoryDescription
             Glide.with(repositoryItemBinding.photoUser)
                 .load(repository.owner.photo_user)
+                .circleCrop()
                 .into(repositoryItemBinding.photoUser)
 
 

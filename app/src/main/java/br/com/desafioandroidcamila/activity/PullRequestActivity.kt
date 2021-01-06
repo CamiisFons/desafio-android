@@ -3,33 +3,34 @@ package br.com.desafioandroidcamila.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.desafioandroidcamila.Utils.Constants
 import br.com.desafioandroidcamila.adapter.PullRequestAdapter
 import br.com.desafioandroidcamila.databinding.ActivityPullRequestBinding
-import br.com.desafioandroidcamila.models.PullRequest
-import br.com.desafioandroidcamila.webservices.InicializadorAPI.initPull
-import kotlinx.android.synthetic.main.pull_request_item.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import br.com.desafioandroidcamila.viewmodel.PullRequestViewModel
 
-class PullRequestActivity : AppCompatActivity(),PullRequestAdapter.ListOnClickListener{
+class PullRequestActivity : AppCompatActivity(), PullRequestAdapter.ListOnClickListener {
 
-    private val listPull = ArrayList<PullRequest>()
-    private val adapter = PullRequestAdapter(listPull,this)
+    private val adapterPull = PullRequestAdapter(ArrayList(), this)
 
-    private lateinit var bindingPull : ActivityPullRequestBinding
+    private lateinit var bindingPull: ActivityPullRequestBinding
+    private lateinit var pullViewModel: PullRequestViewModel
 
     var owner = ""
     var repositories = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pullViewModel = ViewModelProvider(this).get(PullRequestViewModel::class.java)
+        recyclerPullInit()
+        updatePull()
+    }
+
+
+    fun recyclerPullInit() {
         bindingPull = ActivityPullRequestBinding.inflate(layoutInflater)
         setContentView(bindingPull.root)
 
@@ -40,54 +41,47 @@ class PullRequestActivity : AppCompatActivity(),PullRequestAdapter.ListOnClickLi
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         bindingPull.toolBar2.title = repositories
+        bindingPull.openClosed.text
 
-        bindingPull.pullRecycler.adapter = adapter
+        bindingPull.pullRecycler.adapter = adapterPull
         bindingPull.pullRecycler.layoutManager = LinearLayoutManager(this)
         bindingPull.pullRecycler.setHasFixedSize(true)
 
 
-
-        getPullRequest(owner,repositories)
+        pullViewModel.getPull(owner, repositories)
     }
 
-        fun getPullRequest (owner: String,repositories: String){
-        val Api = initPull()
-
-        val call = Api.getPullRequest(owner,repositories)
-
-        call.enqueue(object : Callback<List<PullRequest>> {
-            override fun onFailure(call: Call<List<PullRequest>>, t: Throwable) {
-                Log.d("Erro de chamada", t.message.toString())
-                Toast.makeText(this@PullRequestActivity, t.message, Toast.LENGTH_LONG).show()
-            }
-
-            override fun onResponse(call: Call<List<PullRequest>>, response: Response<List<PullRequest>>) {
-                if (response.isSuccessful){
-                    response.body()?.let {
-                        bindingPull.pullRecycler.adapter = PullRequestAdapter(listPull,this@PullRequestActivity)
-                        listPull.addAll(it)
-                    }
-                }
-            }
+    fun updatePull() {
+        pullViewModel.liveDataPull.observe(this, {
+            adapterPull.pullRequestList.addAll(it)
+            adapterPull.notifyDataSetChanged()
 
         })
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return false
     }
 
     override fun OnItemListClick(position: Int) {
-        val url = listPull[position].html_url
-        val intencaoPull= Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val url = adapterPull.pullRequestList[position].html_url
+        val intencaoPull = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intencaoPull)
     }
-
-
 }
+
+
+
+
+
+
+
+
+
 
 
 
