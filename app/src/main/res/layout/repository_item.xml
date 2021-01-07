@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:clickable="true"
-    app:cardCornerRadius="24dp">
+    app:cardCornerRadius="24dp"
+    android:focusable="true">
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -24,18 +25,21 @@
                 android:id="@+id/photo_user"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
-                android:layout_marginStart="288dp"
+                android:layout_marginStart="54dp"
                 android:layout_marginTop="32dp"
+                android:layout_toEndOf="@+id/description_repository"
                 app:srcCompat="@drawable/ic_person" />
 
             <TextView
                 android:id="@+id/username"
-                android:layout_width="85dp"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/photo_user"
                 android:layout_marginStart="290dp"
                 android:layout_marginTop="8dp"
-                android:text="username"
+                android:text="@string/username"
                 android:textAlignment="center" />
 
             <TextView
@@ -45,16 +49,16 @@
                 android:layout_below="@+id/username"
                 android:layout_marginStart="280dp"
                 android:layout_marginTop="2dp"
-                android:text="Nome Completo"
+                android:text="@string/full_name"
                 android:textAlignment="center" />
 
             <ImageView
                 android:id="@+id/star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_below="@+id/description_repository"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="28dp"
                 android:layout_toEndOf="@+id/fork_qnty"
                 app:srcCompat="@drawable/ic_star" />
 
@@ -64,10 +68,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/description_repository"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="25dp"
                 android:layout_toEndOf="@+id/star"
-                android:text="501"
-                android:textColor="@color/black" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/qnty_of_star"
+                android:textColor="#E6AC3F" />
 
             <TextView
                 android:id="@+id/fork_qnty"
@@ -76,8 +82,10 @@
                 android:layout_below="@+id/description_repository"
                 android:layout_marginTop="24dp"
                 android:layout_toEndOf="@+id/fork"
-                android:text="12354"
-                android:textColor="@color/black" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/qnty_of_fork"
+                android:textColor="#E6AC3F" />
 
             <TextView
                 android:id="@+id/repository_name"
@@ -86,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="25dp"
-                android:text="Nome Repositório"
+                android:text="@string/repository_name"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -98,16 +106,18 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="6dp"
                 android:maxLines="3"
-                android:text="Descrição do repostiroioiopds daskopdacsacsacacsacascsacascascascascascas d ad d wd wqdw fsvdsfsfwes fasfafc ewbfv f v vkj vBERVGQG ERvV EUFIHUE" />
+                android:textColor="@color/black"
+                android:text="@string/description" />
 
             <ImageView
                 android:id="@+id/fork"
-                android:layout_width="36dp"
-                android:layout_height="22dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_below="@+id/description_repository"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                app:srcCompat="@drawable/fork_removebg_preview" />
+                android:layout_marginTop="28dp"
+                android:backgroundTint="@color/purple_700"
+                app:srcCompat="@drawable/ic_png_transparent_github_computer_icons_branching_github_branch_fork_git_thumbnail" />
 
 
         </RelativeLayout>

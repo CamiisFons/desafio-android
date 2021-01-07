@@ -47,8 +47,8 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
                 if (i !in adapterRepository.repositoryList) {
                     adapterRepository.repositoryList.addAll(it)
                     adapterRepository.notifyDataSetChanged()
-                    binding.progressbar.visibility = View.VISIBLE
                 }
+                binding.progressbar.visibility = View.GONE
             }
 
         })
@@ -60,16 +60,15 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
             RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastCompleteItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
                 if (!isLoading) {
                     page += 1
-                    viewModel.getRepository(page)
-                    binding.progressbar.visibility = View.GONE
+                    viewModel.getRepository(page++)
+
                 }
             }
 
         })
+        binding.progressbar.visibility = View.VISIBLE
     }
 
 
@@ -81,7 +80,9 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
         startActivity(intecao)
     }
 
-}
+
+    }
+
 
 
 

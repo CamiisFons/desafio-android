@@ -38,7 +38,7 @@ class PullRequestAdapter(
 
         fun bindingPull(pullRequest: PullRequest) {
 
-            pullRequestItemBinding.pullTitle.text = pullRequest.pullRequestTytle
+            pullRequestItemBinding.pullTitle.text = pullRequest.pullRequestTitle
             pullRequestItemBinding.pullDescription.text = pullRequest.body
             pullRequestItemBinding.pullUsername.text = pullRequest.owner.login
             pullRequestItemBinding.pullName.text = pullRequest.name

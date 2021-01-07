@@ -19,7 +19,7 @@
         android:layout_below="@id/toolBar2"
         android:orientation="vertical">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/open_closed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:padding="16dp"
             android:text="opned - closed"
             android:textColor="@color/white"
-            android:textSize="16dp" />
+            android:textSize="16dp" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pull_recycler"

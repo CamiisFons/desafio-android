@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class PullRequest(
-    @SerializedName("name") val pullRequestTytle : String,
+    @SerializedName("title") val pullRequestTitle : String,
     @SerializedName("created_at") val pullRequestDate : String,
     @SerializedName("user") val owner: Owner,
     @SerializedName("html_url") val html_url : String,

@@ -12,7 +12,6 @@ import retrofit2.Response
 
 class RepositoryViewModel : ViewModel() {
 
-    private val list: MutableList<Repository> = arrayListOf()
     private val users by lazy { InicializadorAPI.init() }
     val liveData: MutableLiveData<List<Repository>> = MutableLiveData()
 

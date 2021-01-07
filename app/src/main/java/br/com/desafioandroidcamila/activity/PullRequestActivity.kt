@@ -41,7 +41,6 @@ class PullRequestActivity : AppCompatActivity(), PullRequestAdapter.ListOnClickL
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         bindingPull.toolBar2.title = repositories
-        bindingPull.openClosed.text
 
         bindingPull.pullRecycler.adapter = adapterPull
         bindingPull.pullRecycler.layoutManager = LinearLayoutManager(this)
