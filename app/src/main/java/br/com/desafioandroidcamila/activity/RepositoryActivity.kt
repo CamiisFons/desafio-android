@@ -41,6 +41,7 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
 
     }
 
+
     fun updateList() {
         viewModel.liveData.observe(this, {
             for (i in it) {
@@ -58,17 +59,23 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
     fun onScrollListener() {
         binding.recyclerRepository.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
                 if (!isLoading) {
-                    page += 1
-                    viewModel.getRepository(page++)
+                    if (linearLayoutManager != null && linearLayoutManager.findLastCompletelyVisibleItemPosition()
+                        == adapterRepository.repositoryList.size - 1
+                    ) {
+                        page += 1
+                        viewModel.getRepository(page++)
+                        binding.progressbar.visibility = View.VISIBLE
+                    }
 
                 }
             }
 
         })
-        binding.progressbar.visibility = View.VISIBLE
+
     }
 
 
@@ -81,7 +88,7 @@ class RepositoryActivity : AppCompatActivity(), RepositoryAdapter.OnItemClickLis
     }
 
 
-    }
+}
 
 
 

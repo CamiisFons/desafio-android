@@ -17,7 +17,7 @@ class PullRequestViewModel : ViewModel() {
 
     fun getPull(owner: String, repositories: String) {
 
-        val usersPull by lazy { InicializadorAPI.initPull() }
+        val usersPull by lazy { InicializadorAPI.init() }
         val call = usersPull.getPullRequest(owner, repositories)
 
         call.enqueue(object : Callback<List<PullRequest>> {

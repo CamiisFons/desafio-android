@@ -3,7 +3,9 @@ package br.com.desafioandroidcamila.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,11 +50,19 @@ class PullRequestActivity : AppCompatActivity(), PullRequestAdapter.ListOnClickL
 
 
         pullViewModel.getPull(owner, repositories)
+
     }
 
     fun updatePull() {
         pullViewModel.liveDataPull.observe(this, {
             adapterPull.pullRequestList.addAll(it)
+            if (adapterPull.itemCount == 0) {
+                Log.e("Pull Request", "No pulls found for this Repository")
+                Toast.makeText(this,"No pulls found for this Repository",Toast.LENGTH_LONG).show()
+            } else {
+                Log.e("Pull Request", "cheio")
+            }
+
             adapterPull.notifyDataSetChanged()
 
         })
